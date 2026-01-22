@@ -1,0 +1,29 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="app-header" role="banner">
+  <div class="app-header__inner">
+    <a class="brand" routerLink="/home" aria-label="Sample Login home">
+      Sample Login
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__link" routerLink="/login">Login</a>
+      <a class="nav__link" routerLink="/forgot-password">Forgot Password</a>
+
+      @if (loggedIn$ | async) {
+        <a class="nav__link" routerLink="/dashboard">Dashboard</a>
+        <button class="btn small" type="button" (click)="onLogout()" [disabled]="isLoggingOut">
+          {{ isLoggingOut ? 'Logging out…' : 'Logout' }}
+        </button>
+      }
+    </nav>
+  </div>
+
+  @if (logoutError) {
+    <div class="header-error" role="alert" aria-live="polite">{{ logoutError }}</div>
+  }
+</header>
+
+<main id="main-content" class="app-main" role="main">
+  <router-outlet />
+</main>

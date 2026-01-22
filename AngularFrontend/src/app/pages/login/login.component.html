@@ -1,0 +1,58 @@
+<section class="page">
+  <div class="card">
+    <h1 #pageTitle class="page-title" tabindex="-1">Sign in</h1>
+
+    <p class="muted">Use your username and password to access the dashboard.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          inputmode="text"
+          autocomplete="username"
+          [attr.aria-invalid]="!!fieldError('username')"
+          [attr.aria-describedby]="fieldError('username') ? 'username-error' : null"
+          formControlName="username"
+        />
+        @if (fieldError('username')) {
+          <div id="username-error" class="field-error" role="alert">
+            {{ fieldError('username') }}
+          </div>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          [attr.aria-invalid]="!!fieldError('password')"
+          [attr.aria-describedby]="fieldError('password') ? 'password-error' : null"
+          formControlName="password"
+        />
+        @if (fieldError('password')) {
+          <div id="password-error" class="field-error" role="alert">
+            {{ fieldError('password') }}
+          </div>
+        }
+      </div>
+
+      @if (serverError) {
+        <div class="banner-error" role="alert" aria-live="assertive">
+          {{ serverError }}
+        </div>
+      }
+
+      <button class="btn primary" type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Signing in…' : 'Sign in' }}
+      </button>
+
+      <div class="form-links">
+        <a routerLink="/forgot-password">Forgot password?</a>
+      </div>
+    </form>
+  </div>
+</section>
